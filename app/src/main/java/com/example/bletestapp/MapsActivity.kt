@@ -146,7 +146,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         val cameraUpdate = CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 120)
         mMap.moveCamera(cameraUpdate)
-        mMap.
     }
 
     /**
