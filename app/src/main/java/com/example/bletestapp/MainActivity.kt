@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mCheckBoxNotifyChara1: CheckBox // キャラクタリスティック１の変更通知ON/OFFチェックボックス
     private lateinit var mButtonWrite100ms: Button
     private lateinit var mButtonWrite1000ms: Button
+    private lateinit var mButtonShowMap: Button
+    private lateinit var mButtonStart: Button
+    private lateinit var mButtonStop: Button
 
     // BluetoothGattコールバック
     private val mGattCallback: BluetoothGattCallback = object : BluetoothGattCallback() {
@@ -163,6 +166,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mButtonWrite100ms.setOnClickListener(this)
         mButtonWrite1000ms = findViewById(R.id.button_write_1000ms)
         mButtonWrite1000ms.setOnClickListener(this)
+        mButtonShowMap = findViewById(R.id.button_transition_to_Map)
+        mButtonShowMap.setOnClickListener(this)
+        mButtonShowMap.isEnabled = true
+        mButtonStart = findViewById(R.id.button_start)
+        mButtonStart.setOnClickListener(this)
+        mButtonStop = findViewById(R.id.button_stop)
+        mButtonStop.setOnClickListener(this)
 
         // check if ble is supported
         packageManager.takeIf { it.missingSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE) }?.let {
@@ -196,6 +206,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mCheckBoxNotifyChara1.isChecked = false
         mButtonWrite100ms.isEnabled = false
         mButtonWrite1000ms.isEnabled = false
+
+        mButtonShowMap.isEnabled = true
 
         // デバイスアドレスが空でなければ、接続ボタンを有効にする。
         if (mDeviceAddress != "") {
@@ -262,6 +274,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             mButtonWrite1000ms.isEnabled = false
             writeCharacteristic(UUID_SERVICE_PRIVATE, UUID_CHARACTERISTIC_PRIVATE2, "1000")
             return
+        }
+        if (mButtonShowMap.id == v.id) {
+            mButtonShowMap.isEnabled = false
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -33,14 +33,12 @@ void loop() {
     if (is_up && z_now < Z_MIN && walk_time_span < WALK_TH) {
       walk_count += 1;
       is_up = false;
-      //Serial.print("walk_count: ");
-      //Serial.println(walk_count);
+
     }
     if (walk_time_span >= WALK_TH) {
       is_up = false;
     }
-    //Serial.print("z_now: ");
-    //Serial.println(z_now);
+
   }
   delay(10);
   walk_time_span += 10;
